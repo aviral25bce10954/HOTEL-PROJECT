@@ -55,7 +55,7 @@ def place_food_order():
             return
         print("\n--- Available Menu ---")
         for dish, price in MENU_ITEMS.items():
-            print(f"{dish:15} Rs.{price}")
+            print("{dish:15} Rs.{price}")
         while True:
             selection = input("Type food item to order (or 'done' if finished): ").strip().upper()
             if selection == 'DONE':
@@ -75,7 +75,7 @@ def place_food_order():
                 "INSERT INTO RESTAURANT (room_no, food_name, price, qty) VALUES (?, ?, ?, ?)",
                 (room, selection, MENU_ITEMS[selection], quantity)
             )
-            print(f"{quantity} x {selection} added to your order for room {room}.")
+            print("{quantity} x {selection} added to your order for room {room}.")
         conn.commit()
 
 def process_checkout():
@@ -113,15 +113,15 @@ def process_checkout():
         print(cust_table)
         print("\n--- Food Charges ---")
         print(food_table)
-        print(f"\nRoom cost: Rs. {total_room_cost}")
-        print(f"Food cost: Rs. {food_cost}")
-        print(f"Grand Total: Rs. {total_room_cost + food_cost}")
+        print("\nRoom cost: Rs. {total_room_cost}")
+        print("Food cost: Rs. {food_cost}")
+        print("Grand Total: Rs. {total_room_cost + food_cost}")
 
         cur.execute("DELETE FROM CUSTOMERS WHERE name=?", (customer,))
         cur.execute("DELETE FROM RESTAURANT WHERE room_no=?", (room_num,))
         cur.execute("UPDATE ROOMS SET status='vacant' WHERE roomno=?", (room_num,))
         conn.commit()
-        print(f"Guest checked out. Room {room_num} marked as vacant.")
+        print("Guest checked out. Room {room_num} marked as vacant.")
 
 def start_hotel_system():
     while True:
@@ -148,3 +148,4 @@ def start_hotel_system():
 
 if __name__ == "__main__":
     start_hotel_system()
+
